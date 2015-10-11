@@ -14,10 +14,11 @@
             android:id="@+id/menu_item_star"
             android:icon="@mipmap/icon_menu_star"
             android:title="收藏" />
+        <!--暂定笑话大全，后期改为工具箱-->
         <item
             android:id="@+id/menu_item_tool"
             android:icon="@mipmap/icon_menu_tools"
-            android:title="工具箱" />
+            android:title="笑话大全" />
     </group>
 
     <item android:title="其他">

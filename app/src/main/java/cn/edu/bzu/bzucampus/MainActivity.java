@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 
+import cn.edu.bzu.bzucampus.activity.JokeActivity;
 import cn.edu.bzu.bzucampus.activity.LoginActivity;
 import cn.edu.bzu.bzucampus.adapter.ViewPagerAdapter;
 import cn.edu.bzu.bzucampus.fragment.LifeFragment;
@@ -66,6 +67,9 @@ public class MainActivity extends BaseActivity {
                         Intent loginItent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(loginItent);
                         break;
+                    case R.id.menu_item_tool:
+                        Intent jokeIntent = new Intent(MainActivity.this, JokeActivity.class);
+                        startActivity(jokeIntent);
                 }
                 mDrawerLayout.closeDrawers();
                 return false;
