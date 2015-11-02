@@ -62,14 +62,13 @@ public class MainActivity extends BaseActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 switch (id) {
+                    //TODO  菜单栏选择界面
                     //返回首页
                     case R.id.menu_item_login:
                         Intent loginItent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(loginItent);
                         break;
-                    case R.id.menu_item_tool:
-                        Intent jokeIntent = new Intent(MainActivity.this, JokeActivity.class);
-                        startActivity(jokeIntent);
+
                 }
                 mDrawerLayout.closeDrawers();
                 return false;
@@ -140,25 +139,5 @@ public class MainActivity extends BaseActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tl_main_tabs);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

@@ -2,10 +2,10 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="cn.edu.bzu.bzucampus.activity.NewsInformActivity">
+    tools:context="cn.edu.bzu.bzucampus.activity.DetailsActivity">
 
     <item
         android:id="@+id/item_test"
-        android:title="测试帖子"/>
+        android:title="菜单栏"/>
 
 </menu>

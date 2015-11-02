@@ -66,6 +66,7 @@ public class TopNewsRecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolde
         holder.iv_user_img.setTag(url);
         new ImageLoader().showImageByAsyncTask(holder.iv_user_img,url);
         holder.tv_news_title.setText(mData.get(position).getTitle()); //内容
+        holder.tv_objectId.setText(mData.get(position).getObjectId());
 
         if (mOnItemClickListener!=null){
 
@@ -105,6 +106,7 @@ class MyViewHolder extends RecyclerView.ViewHolder {
     TextView tv_nick;
     ImageView iv_user_img;
     TextView tv_news_title,tv_date;
+    TextView tv_objectId;
     public MyViewHolder(View itemView) {
         super(itemView);
         /**初始化控件**/
@@ -112,5 +114,6 @@ class MyViewHolder extends RecyclerView.ViewHolder {
         iv_user_img= (ImageView) itemView.findViewById(R.id.iv_user_img);
         tv_date = (TextView) itemView.findViewById(R.id.tv_date);
         tv_news_title= (TextView) itemView.findViewById(R.id.tv_news_title);
+        tv_objectId= (TextView) itemView.findViewById(R.id.tv_objectId);
     }
 }

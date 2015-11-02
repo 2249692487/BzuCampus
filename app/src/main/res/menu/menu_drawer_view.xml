@@ -18,7 +18,7 @@
         <item
             android:id="@+id/menu_item_tool"
             android:icon="@mipmap/icon_menu_tools"
-            android:title="笑话大全" />
+            android:title="工具箱" />
     </group>
 
     <item android:title="其他">
