@@ -5,13 +5,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.GetListener;
 import cn.edu.bzu.bzucampus.BaseActivity;
 import cn.edu.bzu.bzucampus.R;
+import cn.edu.bzu.bzucampus.entity.GradNews;
 import cn.edu.bzu.bzucampus.entity.TopNews;
 import cn.edu.bzu.bzucampus.util.ImageLoader;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -20,13 +23,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 新闻内容详情
  * Created by monster on 2015/10/4.
  */
-public class DetailsActivity extends BaseActivity {
+public class GraduDetailsActivity extends BaseActivity {
 
     private Toolbar mToolbar ;
     private String objectId;
     private CircleImageView iv_userPhoto;
     private TextView tv_name,tv_date,tv_title,tv_content;
     private String fileUrl;
+    private ImageView iv_newsImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,26 +47,32 @@ public class DetailsActivity extends BaseActivity {
      * 查询相应id的数据
      */
     private void queryData() {
-        BmobQuery<TopNews> query = new BmobQuery<TopNews>();
+        BmobQuery<GradNews> query = new BmobQuery<GradNews>();
         query.include("author"); //包含作者
-        query.getObject(DetailsActivity.this, objectId, new GetListener<TopNews>() {
-            @Override
-            public void onSuccess(TopNews news) {
-                //得到对应的值
-                fileUrl = news.getAuthor().getUserPhoto().getFileUrl(DetailsActivity.this);
-                iv_userPhoto.setTag(fileUrl);
-                new ImageLoader().showImageByThread(iv_userPhoto,fileUrl);
-                tv_name.setText(news.getAuthor().getNick());
-                tv_date.setText(news.getUpdatedAt());
-                tv_title.setText("【"+news.getTitle()+"】");
-                tv_content.setText(news.getContent());
-            }
+         query.getObject(GraduDetailsActivity.this, objectId, new GetListener<GradNews>() {
+             @Override
+             public void onSuccess(GradNews gradNews) {
+                 fileUrl = gradNews.getAuthor().getUserPhoto().getFileUrl(GraduDetailsActivity.this);
+                 iv_userPhoto.setTag(fileUrl);
+                 new ImageLoader().showImageByThread(iv_userPhoto, fileUrl);
+                 tv_name.setText(gradNews.getAuthor().getNick());
+                 tv_date.setText(gradNews.getUpdatedAt());
+                 tv_title.setText("【"+gradNews.getTitle()+"】");
+                 tv_content.setText(gradNews.getContent());
+                 BmobFile file = gradNews.getNewsImg();
+                 if(file!=null){
+                     iv_newsImg.setVisibility(View.VISIBLE);
+                     String fileUrl  = file.getFileUrl(GraduDetailsActivity.this);
+                     iv_newsImg.setTag(fileUrl);
+                     new ImageLoader().showImageByThread(iv_newsImg,fileUrl);
+                 }
+             }
 
-            @Override
-            public void onFailure(int i, String s) {
-                Toast.makeText(DetailsActivity.this,"查询数据失败"+s,Toast.LENGTH_SHORT).show();
-            }
-        });
+             @Override
+             public void onFailure(int i, String s) {
+
+             }
+         });
     }
 
     /**
@@ -74,6 +84,7 @@ public class DetailsActivity extends BaseActivity {
         tv_date= (TextView) findViewById(R.id.tv_date);
         tv_title= (TextView) findViewById(R.id.tv_title);
         tv_content= (TextView) findViewById(R.id.tv_content);
+        iv_newsImg= (ImageView) findViewById(R.id.iv_newsImg);
     }
 
     /**
@@ -90,7 +101,7 @@ public class DetailsActivity extends BaseActivity {
                 int id = item.getItemId();
                 switch (id) {
                     case R.id.item_test:
-                        Toast.makeText(DetailsActivity.this, "测试Toast", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GraduDetailsActivity.this, "测试Toast", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return true;

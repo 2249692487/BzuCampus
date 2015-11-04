@@ -2,7 +2,7 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="cn.edu.bzu.bzucampus.activity.DetailsActivity">
+    tools:context="cn.edu.bzu.bzucampus.activity.TopDetailsActivity">
 
     <item
         android:id="@+id/item_test"

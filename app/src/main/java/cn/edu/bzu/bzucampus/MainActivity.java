@@ -9,21 +9,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 
-import cn.edu.bzu.bzucampus.activity.JokeActivity;
 import cn.edu.bzu.bzucampus.activity.LoginActivity;
 import cn.edu.bzu.bzucampus.adapter.ViewPagerAdapter;
 import cn.edu.bzu.bzucampus.fragment.LifeFragment;
-import cn.edu.bzu.bzucampus.fragment.TopNewsFragment;
-import cn.edu.bzu.bzucampus.fragment.MarketNewsFragment;
-import cn.edu.bzu.bzucampus.fragment.GraduateNewsFragment;
+import cn.edu.bzu.bzucampus.fragment.TopFragment;
+import cn.edu.bzu.bzucampus.fragment.SecondFragment;
+import cn.edu.bzu.bzucampus.fragment.GradNewsFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -82,9 +79,9 @@ public class MainActivity extends BaseActivity {
     private void initMainContent() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        Fragment topNews = new TopNewsFragment();
-        Fragment graduateNews = new GraduateNewsFragment();
-        Fragment marketNews = new MarketNewsFragment();
+        Fragment topNews = new TopFragment();
+        Fragment graduateNews = new GradNewsFragment();
+        Fragment marketNews = new SecondFragment();
         Fragment lifeNews = new LifeFragment();
 
         adapter.addFragment(topNews, "新闻头条");

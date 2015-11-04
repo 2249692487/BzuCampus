@@ -11,7 +11,7 @@ import cn.edu.bzu.bzucampus.R;
 /**
  * Created by monster on 2015/9/13.
  */
-public class MarketNewsFragment extends Fragment {
+public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fg_marketnews,container,false);

@@ -16,32 +16,31 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import cn.edu.bzu.bzucampus.R;
-import cn.edu.bzu.bzucampus.activity.DetailsActivity;
-import cn.edu.bzu.bzucampus.adapter.TopNewsRecyclerViewAdapter;
+import cn.edu.bzu.bzucampus.activity.TopDetailsActivity;
+import cn.edu.bzu.bzucampus.adapter.TopNewsAdapter;
 import cn.edu.bzu.bzucampus.entity.TopNews;
 
 
 /**
  * Created by monster on 2015/9/13.
  */
-public class TopNewsFragment extends Fragment {
+public class TopFragment extends Fragment {
 
     private RecyclerView mRrecyclerView;
-    private TopNewsRecyclerViewAdapter mAdapter;
-    private List<TopNews> mList = new ArrayList<>();
+    private TopNewsAdapter mAdapter;
     private Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager layoutManager;
     private View mView;
     private BmobQuery<TopNews> query;
+    private ProgressWheel progress;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +52,8 @@ public class TopNewsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.mView=view;
+        progress= (ProgressWheel) mView.findViewById(R.id.progress_wheel);
+        progress.setVisibility(View.VISIBLE);  //进度条显示
         checkData();
     }
 
@@ -61,13 +62,15 @@ public class TopNewsFragment extends Fragment {
      */
     private void checkData() {
         query=new BmobQuery<TopNews>();
+
         query.include("author");
                 /*
                    第一次进入应用的时候，设置其查询的缓存策略为CACHE_ELSE_NETWORK,当用户执行上拉或者下拉刷新操作时，设置查询的缓存策略为NETWORK_ELSE_CACHE
                  */
-        query.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
-
         query.setLimit(40);  //返回40条数据，如果不加上这条语句，默认返回10条数据
+      //  query.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
+
+
         query.findObjects(mContext, new FindListener<TopNews>() {
 
             @Override
@@ -77,7 +80,6 @@ public class TopNewsFragment extends Fragment {
 
             @Override
             public void onError(int i, String s) {
-                Toast.makeText(mContext,"发生错误"+s,Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -88,8 +90,8 @@ public class TopNewsFragment extends Fragment {
      * 初始化视图
      */
     private void initView(View view,List<TopNews> list) {
-        mRrecyclerView= (RecyclerView) view.findViewById(R.id.rc_topNews);
-        mAdapter=new TopNewsRecyclerViewAdapter(list,mContext);
+        mRrecyclerView= (RecyclerView) view.findViewById(R.id.rc_news);
+        mAdapter=new TopNewsAdapter(list,mContext);
         mRrecyclerView.setAdapter(mAdapter);
 
         //设置RecyclerView的布局管理
@@ -101,17 +103,17 @@ public class TopNewsFragment extends Fragment {
 
         //设置RecyclerView的动画
         mRrecyclerView.setItemAnimator(new DefaultItemAnimator());
-
+        progress.setVisibility(View.INVISIBLE);  //进度条关闭
         // boolean isInCache = query.hasCachedResult(mContext,TopNews.class); //检查缓存数据
 
         //设置监听事件
-        mAdapter.setOnItemClickListener(new TopNewsRecyclerViewAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new TopNewsAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(int position, View view) {
                 View v = mRrecyclerView.getChildAt(position);
                 TextView tv_objectId = (TextView) v.findViewById(R.id.tv_objectId);
                 String objectId=tv_objectId.getText().toString();
-                Intent detailIntent = new Intent(mContext, DetailsActivity.class);
+                Intent detailIntent = new Intent(mContext, TopDetailsActivity.class);
                 detailIntent.putExtra("objectId",objectId);
                 startActivity(detailIntent);
             }
